@@ -67,8 +67,8 @@ app.get('/auth/err', function (req, res) {
 
 app.get('/auth/success', function (req, res) {
 
-    if (req.passport.user) {
-        res.json(req.passport.user)
+    if (req.user) {
+        res.json(req.user)
     }
 
     res.send({message: 'success'});
