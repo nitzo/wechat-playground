@@ -6,6 +6,7 @@ var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var debug = require('debug')('wechat-playground');
 var passport = require('passport');
+var session = require('express-session');
 var WechatStrategy = require('passport-wechat').Strategy;
 var middleware = require('./middleware');
 
@@ -50,7 +51,9 @@ app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
+app.use(session({secret: 'test'}));
 app.use(passport.initialize());
+app.use(passport.session());
 app.use('/', middleware.requestLogger);
 //app.use('/wechat', middleware.wechatMiddleware)
 app.use(express.static(path.join(__dirname, 'public')));
@@ -63,6 +66,11 @@ app.get('/auth/err', function (req, res) {
 });
 
 app.get('/auth/success', function (req, res) {
+
+    if (req.passport.user) {
+        res.json(req.passport.user)
+    }
+
     res.send({message: 'success'});
 });
 
