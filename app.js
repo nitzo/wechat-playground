@@ -36,6 +36,9 @@ passport.use(new WechatStrategy({
     // appsecret: '74c7bf3702ff7d2cbc554ce19248a4b7',
     // callbackURL: 'http://api.liangyali.com:3000/auth/wechat/callback'
 }, function (openid, profile, token, done) {
+    console.log(openid);
+    console.log(profile);
+    console.log(token);
     return done(null, openid, profile);
 }));
 
