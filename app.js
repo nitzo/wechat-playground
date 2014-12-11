@@ -70,8 +70,11 @@ app.get('/auth/success', function (req, res) {
     if (req.user) {
         res.json(req.user)
     }
+    else {
 
-    res.send({message: 'success'});
+
+        res.send({message: 'success'});
+    }
 });
 
 app.get('/', function (req, res) {
