@@ -5,12 +5,40 @@ var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var debug = require('debug')('wechat-playground');
+var passport = require('passport');
+var WechatStrategy = require('passport-wechat').Strategy;
 var middleware = require('./middleware');
 
 var routes = require('./routes/index');
 var users = require('./routes/users');
 
 var app = express();
+
+
+
+
+passport.serializeUser(function (user, done) {
+    done(null, user);
+});
+
+passport.deserializeUser(function (obj, done) {
+    done(null, obj);
+});
+
+passport.use(new WechatStrategy({
+    appid: 'wxb8710554ac939ee2',
+    appsecret: '76dbfb00f17b71bb63ed22251ad34f89',
+    callbackURL: 'http://wechat.screemo.net/auth/wechat/callback',
+    scope: 'snsapi_base',
+    state: true
+    // appid: 'wx3af1ba5b6113419d',
+    // appsecret: '74c7bf3702ff7d2cbc554ce19248a4b7',
+    // callbackURL: 'http://api.liangyali.com:3000/auth/wechat/callback'
+}, function (openid, profile, token, done) {
+    return done(null, openid, profile);
+}));
+
+
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -22,12 +50,31 @@ app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
+app.use(passport.initialize());
 app.use('/', middleware.requestLogger);
-app.use('/wechat', middleware.wechatMiddleware)
+//app.use('/wechat', middleware.wechatMiddleware)
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', routes);
 app.use('/users', users)
+
+app.get('/auth/err', function (req, res) {
+    res.send({message: 'error'});
+});
+
+app.get('/auth/success', function (req, res) {
+    res.send({message: 'success'});
+});
+
+app.get('/', function (req, res) {
+    res.json({status: 'ok'});
+});
+
+app.get('/auth/wechat', passport.authenticate('wechat'));
+
+app.get('/auth/wechat/callback', passport.authenticate('wechat', {
+    failureRedirect: '/auth/err',
+    successRedirect: '/auth/success'}));
 
 
 // catch 404 and forward to error handler
@@ -51,6 +98,8 @@ if (app.get('env') === 'development') {
     });
 }
 
+
+
 // production error handler
 // no stacktraces leaked to user
 app.use(function(err, req, res, next) {
@@ -60,6 +109,11 @@ app.use(function(err, req, res, next) {
         error: {}
     });
 });
+
+
+
+
+
 
 app.set('port', process.env.PORT || 3000);
 
