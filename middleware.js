@@ -1,5 +1,5 @@
 
-var wechat = require('wechat');
+var wechat = require('./wechat');
 
 exports.wechatMiddleware = wechat('nitzo', function (req, res, next) {
     console.log('wechat API accessed!');
