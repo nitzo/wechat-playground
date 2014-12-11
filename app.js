@@ -84,7 +84,12 @@ app.get('/', function (req, res) {
     res.json({status: 'ok'});
 });
 
-app.get('/auth/wechat', passport.authenticate('wechat'));
+app.get('/auth/wechat', function(req,res, next){
+    console.log(req.cookies);
+    console.log(JSON.stringify(req.headers));
+
+    passport.authenticate('wechat')(req,res,next);
+});
 
 app.get('/auth/wechat/callback', passport.authenticate('wechat', {
     failureRedirect: '/auth/err',
