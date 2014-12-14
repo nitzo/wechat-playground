@@ -29,7 +29,7 @@ passport.deserializeUser(function (obj, done) {
 passport.use(new WechatStrategy({
     appid: 'wxb8710554ac939ee2',
     appsecret: '76dbfb00f17b71bb63ed22251ad34f89',
-    callbackURL: 'http://wechat.screemo.net/auth/wechat/callback',
+    callbackURL: 'http://demo2.screemo.mobi/auth/wechat/callback',
     scope: 'snsapi_userinfo',
     state: true
     // appid: 'wx3af1ba5b6113419d',
