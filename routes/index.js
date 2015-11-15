@@ -3,7 +3,7 @@ var router = express.Router();
 
 /* GET home page. */
 router.get('/', function(req, res) {
-
+  var url = 'http://' + req.host;
   //req.user = {
   //  name : 'Nitzo',
   //  email : 'nitzan@screemo.com'
@@ -15,7 +15,7 @@ router.get('/', function(req, res) {
     user = JSON.stringify(req.user);
   }
 
-  res.render('index', { title: 'Express', user: user });
+  res.render('index', { title: 'Express', user: user, url : url });
 });
 
 module.exports = router;
