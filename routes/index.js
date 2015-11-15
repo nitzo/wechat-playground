@@ -15,7 +15,7 @@ router.get('/', function(req, res) {
     user = JSON.stringify(req.user);
   }
 
-  res.render('index', { title: 'Express', user: user, url : url });
+  res.render('index', { title: 'Express', user: user, url : url, wechat_config : JSON.stringify(wechat_config) });
 });
 
 module.exports = router;

@@ -26,10 +26,10 @@ passport.deserializeUser(function (obj, done) {
     done(null, obj);
 });
 
-passport.use(new WechatStrategy({
+wechat_config = {
     appID : 'wxd1949a7cb02e1826',
     appSecret : 'd4624c36b6795d1d99dcf0547af5443d',
-    client : 'wechat',
+    client : 'web',
     //appid: 'wxb8710554ac939ee2',
     //appsecret: '76dbfb00f17b71bb63ed22251ad34f89',
     callbackURL: 'http://wechat-playground.herokuapp.com/auth/wechat/callback',
@@ -38,7 +38,10 @@ passport.use(new WechatStrategy({
     // appid: 'wx3af1ba5b6113419d',
     // appsecret: '74c7bf3702ff7d2cbc554ce19248a4b7',
     // callbackURL: 'http://api.liangyali.com:3000/auth/wechat/callback'
-}, function (openid, profile, token, done) {
+};
+
+
+passport.use(new WechatStrategy(wechat_config , function (openid, profile, token, done) {
     console.log(openid);
     console.log(profile);
     console.log(token);
