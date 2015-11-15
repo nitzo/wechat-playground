@@ -62,7 +62,7 @@ app.use('/', middleware.requestLogger);
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', routes);
-app.use('/users', users)
+app.use('/users', users);
 
 app.get('/auth/err', function (req, res) {
     res.send({message: 'error'});
