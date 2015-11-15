@@ -27,9 +27,11 @@ passport.deserializeUser(function (obj, done) {
 });
 
 passport.use(new WechatStrategy({
-    appid: 'wxb8710554ac939ee2',
-    appsecret: '76dbfb00f17b71bb63ed22251ad34f89',
-    callbackURL: 'http://wechat.screemo.net/auth/wechat/callback',
+    appid : 'wxd1949a7cb02e1826',
+    appsecret : 'd4624c36b6795d1d99dcf0547af5443d',
+    //appid: 'wxb8710554ac939ee2',
+    //appsecret: '76dbfb00f17b71bb63ed22251ad34f89',
+    callbackURL: 'http://wechat-playground.herokuapp.com/auth/wechat/callback',
     scope: 'snsapi_userinfo',
     state: true
     // appid: 'wx3af1ba5b6113419d',
@@ -80,9 +82,9 @@ app.get('/auth/success', function (req, res) {
     }
 });
 
-app.get('/', function (req, res) {
-    res.json({status: 'ok'});
-});
+//app.get('/', function (req, res) {
+//    res.json({status: 'ok'});
+//});
 
 app.get('/auth/wechat', function(req,res, next){
     console.log(req.cookies);
@@ -93,7 +95,7 @@ app.get('/auth/wechat', function(req,res, next){
 
 app.get('/auth/wechat/callback', passport.authenticate('wechat', {
     failureRedirect: '/auth/err',
-    successRedirect: '/auth/success'}));
+    successRedirect: '/'}));
 
 
 // catch 404 and forward to error handler
@@ -102,6 +104,8 @@ app.use(function(req, res, next) {
     err.status = 404;
     next(err);
 });
+
+
 
 // error handlers
 
