@@ -27,8 +27,8 @@ passport.deserializeUser(function (obj, done) {
 });
 
 passport.use(new WechatStrategy({
-    appid : 'wxd1949a7cb02e1826',
-    appsecret : 'd4624c36b6795d1d99dcf0547af5443d',
+    appID : 'wxd1949a7cb02e1826',
+    appSecret : 'd4624c36b6795d1d99dcf0547af5443d',
     //appid: 'wxb8710554ac939ee2',
     //appsecret: '76dbfb00f17b71bb63ed22251ad34f89',
     callbackURL: 'http://wechat-playground.herokuapp.com/auth/wechat/callback',

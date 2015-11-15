@@ -14,7 +14,7 @@
     "jade": "~1.6.0",
     "morgan": "~1.3.0",
     "passport": "^0.2.1",
-    "passport-wechat": "^0.1.2",
+    "passport-wechat": "^2.0.0",
     "serve-favicon": "~2.1.3"
   }
 }
