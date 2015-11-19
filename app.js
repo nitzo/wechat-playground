@@ -27,8 +27,8 @@ passport.deserializeUser(function (obj, done) {
 });
 
 wechat_config = {
-    appID : 'wxd1949a7cb02e1826',
-    appSecret : 'd4624c36b6795d1d99dcf0547af5443d',
+    appID : 'wxceb0d1fdb505311d',
+    appSecret : 'ad9c4b9ae80281ec0b7e85ff8116854c',
     //client : 'web',
     //appid: 'wxb8710554ac939ee2',
     //appsecret: '76dbfb00f17b71bb63ed22251ad34f89',
