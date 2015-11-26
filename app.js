@@ -67,6 +67,15 @@ app.use('/', middleware.requestLogger);
 //app.use('/wechat', middleware.wechatMiddleware)
 app.use(express.static(path.join(__dirname, 'public')));
 
+aoo.use('/', function(req,res, next) {
+
+    if (req.headers['user-agent'] && /MicroMessenger/.test(req.headers['user-agent'])) {
+        console.log('Wechat browser detected! AUTO-LOGIN!');
+        passport.authenticate('wechat')(req, res, next);
+    }
+
+});
+
 app.use('/', routes);
 app.use('/users', users);
 
