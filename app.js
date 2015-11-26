@@ -73,6 +73,10 @@ app.use('/', function(req,res, next) {
         console.log('Wechat browser detected! AUTO-LOGIN!');
         passport.authenticate('wechat')(req, res, next);
     }
+    else {
+        next();
+    }
+
 
 });
 
