@@ -15,7 +15,7 @@ router.get('/', function(req, res, next) {
   if (req.user){
     user = JSON.stringify(req.user);
   }
-  else if (isUsingWechatBrowser) {
+  else if (req.headers['user-agent'] && /MicroMessenger/.test(req.headers['user-agent'])) {
     console.log('Wechat browser detected! AUTO-LOGIN!');
     passport.authenticate('wechat')(req, res, next);
   }
