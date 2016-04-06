@@ -8,6 +8,7 @@ var debug = require('debug')('wechat-playground');
 var passport = require('passport');
 var session = require('express-session');
 var WechatStrategy = require('passport-wechat').Strategy;
+var LineStrategy = require('passport-line').Strategy;
 var middleware = require('./middleware');
 
 var routes = require('./routes/index');
@@ -41,11 +42,28 @@ wechat_config = {
 };
 
 
+line_config =  {
+    channelID : 1461222514,
+    channelSecret : '44f8c38da426da2be13c08b76d6a1066',
+    callbackURL : 'http://nitzo.screemo.net:3000/auth/line/callback'
+};
+
+
 passport.use(new WechatStrategy(wechat_config , function (openid, profile, token, done) {
     console.log(openid);
     console.log(profile);
     console.log(token);
     return done(null, openid, profile);
+}));
+
+
+passport.use(new LineStrategy(line_config, function(access_token, refresh_token, profile, done) {
+    console.log(profile);
+
+    return done(null, profile);
+
+
+
 }));
 
 
@@ -110,10 +128,20 @@ app.get('/auth/wechat', function(req,res, next){
     passport.authenticate('wechat')(req,res,next);
 });
 
+app.get('/auth/line', function(req, res, next) {
+
+    passport.authenticate('line')(req, res, next);
+});
+
 app.get('/auth/wechat/callback', passport.authenticate('wechat', {
     failureRedirect: '/auth/err',
     successRedirect: '/'}));
 
+
+app.use('/auth/line/callback', passport.authenticate('line', {
+    failureRedirect : '/',
+    successRedirect : '/'
+}));
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
